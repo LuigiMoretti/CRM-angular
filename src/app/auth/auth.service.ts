@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Data, Router } from "@angular/router";
 import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, map, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
@@ -67,8 +67,10 @@ export class AuthService {
   //     .pipe(catchError(this.errors));
   // }
 
-  signup(data: Utente) {
-    return this.http.post(`${this.URL}/api/auth/signup`, data).subscribe(res=> {
+  signup(data: { username: any; email: any; password: any; nome: any; cognome: any; roles: any; }) {
+    let utenteReg = {username: data.username, email:data.email, password: data.password, nome: data.nome, cognome: data.cognome, role:[data.roles]}
+    console.log(utenteReg);
+    return this.http.post(`${this.URL}/api/auth/signup`, utenteReg).subscribe(res=> {
       console.log(res);
     })
   }

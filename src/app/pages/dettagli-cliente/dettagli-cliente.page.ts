@@ -6,12 +6,15 @@ import { DettagliClienteService } from './dettagli-cliente.service';
 
 @Component({
   templateUrl: './dettagli-cliente.page.html',
-  styleUrls: ['./dettagli-cliente.page.scss']
+  styleUrls: ['./dettagli-cliente.page.scss'],
 })
 export class DettagliClientePage implements OnInit {
   cliente!: Cliente;
   sub!: Subscription;
-  constructor(private router: ActivatedRoute, private detSrv: DettagliClienteService) {}
+  constructor(
+    private router: ActivatedRoute,
+    private detSrv: DettagliClienteService
+  ) {}
 
   ngOnInit(): void {
     this.sub = this.router.params.subscribe((params: Params) => {

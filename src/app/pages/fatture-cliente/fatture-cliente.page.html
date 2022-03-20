@@ -11,13 +11,13 @@
       <th scope="col"><button [routerLink]="['/nuova-fattura', id]" class="btn btn-success">Nuova fattura +</button>
       </th>
       <th scope="col">
-        <select name="filtro" id="filtro">
+        <select name="filtro" id="filtro" class="m-1">
           <option selected disabled>filtra per</option>
           <option value="anno">anno</option>
           <option value="stato">stato</option>
         </select>
-        <input type="text" placeholder="inserisci" id="valore">
-        <button type="button" class="btn btn-danger" (click)="filtra()">cerca
+        <input type="text" placeholder="inserisci" id="valore" class="m-1">
+        <button type="button" class="btn btn-danger m-1" (click)="filtra()">cerca
           <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         </button>
       </th>

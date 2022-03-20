@@ -10,17 +10,17 @@ export class UtentiPage implements OnInit {
   constructor(private utSrv: UtentiService) {}
   utenti: Utente[] | undefined;
   pagina = 0;
-
+  pageLoading = true;
   ngOnInit() {
     this.getUtenti();
   }
 
   getUtenti() {
-    this.utSrv
-      .getUtenti(this.pagina)
-      .subscribe((response) => (this.utenti = response.content));
-
-
+    this.pageLoading = true;
+    this.utSrv.getUtenti(this.pagina).subscribe((response) => {
+      this.utenti = response.content;
+      this.pageLoading = false;
+    });
   }
 
   cambiaPagina(param: string) {
@@ -29,6 +29,6 @@ export class UtentiPage implements OnInit {
     } else if (param == '-') {
       this.pagina--;
     }
-    this.getUtenti()
+    this.getUtenti();
   }
 }

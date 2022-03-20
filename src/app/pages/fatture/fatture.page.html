@@ -1,4 +1,7 @@
-<table class="table">
+<h1 *ngIf="pageLoading" class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></h1>
+
+
+<table *ngIf="!pageLoading" class="table">
   <thead>
     <tr>
       <th scope="col">Id</th>

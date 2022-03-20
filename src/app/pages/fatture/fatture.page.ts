@@ -10,6 +10,7 @@ import { FattureService } from './fatture.service';
 export class FatturePage implements OnInit {
   fatture!: Fattura[];
   isLoading = false;
+  pageLoading = true;
   pagina = 0;
   booleanoFiltro = false;
   constructor(private router: ActivatedRoute, private fatSrv: FattureService) {}
@@ -19,19 +20,12 @@ export class FatturePage implements OnInit {
   }
 
   onGetAllFatture() {
+    this.pageLoading = true;
     this.fatSrv.getAllFatture(this.pagina).subscribe((response) => {
       this.fatture = response.content;
+      this.pageLoading = false;
     });
   }
-
-  // cambiaPagina(param: string) {
-  //   if (param == '+') {
-  //     this.pagina++;
-  //   } else if (param == '-') {
-  //     this.pagina--;
-  //   }
-  //   this.getFatture();
-  // }
 
   cambiaPagina(param: string) {
     if (param == '+') {
@@ -42,9 +36,10 @@ export class FatturePage implements OnInit {
     this.onGetAllFatture();
   }
 
-
   rimuoviFattura(fattura: Fattura) {
-    this.fatSrv.removeFattura(fattura).subscribe(response => {this.onGetAllFatture()})
+    this.fatSrv.removeFattura(fattura).subscribe((response) => {
+      this.onGetAllFatture();
+    });
   }
 
   filtra() {
@@ -58,7 +53,7 @@ export class FatturePage implements OnInit {
       .getFattureFiltrate(filtro, valoreFiltro, this.pagina)
       .subscribe((res) => {
         if (filtro == 'id') {
-          this.fatture=[];
+          this.fatture = [];
           this.fatture.push(res);
           console.log(res);
           this.isLoading = false;

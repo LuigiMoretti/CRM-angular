@@ -12,6 +12,7 @@ export class FattureClientePage implements OnInit {
   fatture!: Fattura[];
   sub!: Subscription;
   isLoading = false;
+  pageLoading = true;
   booleanoFiltro = false;
 
   constructor(
@@ -30,9 +31,10 @@ export class FattureClientePage implements OnInit {
   }
 
   onGetFattureCliente(id: number) {
+    this.pageLoading = true;
     this.fatCliSrv.getFattureCliente(id, this.pagina).subscribe((response) => {
       this.fatture = response.content;
-      console.log(this.fatture);
+      this.pageLoading = false;
     });
   }
 

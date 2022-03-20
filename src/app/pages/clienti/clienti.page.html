@@ -1,7 +1,30 @@
 <h1 *ngIf="pageLoading" class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></h1>
 
 
-
+<div *ngIf="!pageLoading" class="container float-end">
+  <div class="row justify-content-end">
+    <div class="col-md-3 text-end">
+      <button [routerLink]="['/nuovo-cliente']" class="btn btn-success">Nuovo Cliente +</button>
+    </div>
+    <div class="col-md-5 text-end">
+      <select (click)="getFiltro()" name="filtro" id="filtro" class="m-1">
+        <option selected disabled>filtra per</option>
+        <option value="id">id</option>
+        <option value="fatturatoannuale">fatturato annuale</option>
+        <option value="ragionesociale">ragione sociale</option>
+      </select>
+      <input *ngIf="!fatturatoValore" type="text" placeholder="inserisci" id="valore" class="m-1">
+      <input *ngIf="fatturatoValore" type="text" placeholder="da" id="valore1" class="m-1">
+      <input *ngIf="fatturatoValore" type="text" placeholder="a" id="valore2" class="m-1">
+      <button *ngIf="!fatturatoValore" type="button" class="btn btn-danger d-inline m-1" (click)="filtra()">cerca
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+      <button *ngIf="fatturatoValore" type="button" class="btn btn-danger" (click)="filtraFatturato()">cerca
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <table class="table" *ngIf="!pageLoading">
   <thead>
@@ -10,25 +33,6 @@
       <th scope="col">Ragione Sociale</th>
       <th scope="col">Email</th>
       <th scope="col">Partita Iva</th>
-      <th scope="col"><button [routerLink]="['/nuovo-cliente']" class="btn btn-success">Nuovo Cliente +</button></th>
-      <th scope="col" class="th-filtro">
-        <select (click)="getFiltro()" name="filtro" id="filtro" class="m-1">
-          <option selected disabled>filtra per</option>
-          <option value="id">id</option>
-          <option value="fatturatoannuale">fatturato annuale</option>
-          <option value="ragionesociale">ragione sociale</option>
-        </select>
-        <input *ngIf="!fatturatoValore" type="text" placeholder="inserisci" id="valore" class="m-1">
-        <input *ngIf="fatturatoValore" type="text" placeholder="da" id="valore1" class="m-1">
-        <input *ngIf="fatturatoValore" type="text" placeholder="a" id="valore2" class="m-1">
-        <button *ngIf="!fatturatoValore" type="button" class="btn btn-danger d-inline m-1" (click)="filtra()">cerca
-          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-        <button *ngIf="fatturatoValore" type="button" class="btn btn-danger" (click)="filtraFatturato()">cerca
-          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-      </th>
-      <th></th>
     </tr>
 
   </thead>

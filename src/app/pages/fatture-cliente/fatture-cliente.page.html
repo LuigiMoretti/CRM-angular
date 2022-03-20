@@ -1,5 +1,25 @@
 <h1 *ngIf="pageLoading" class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></h1>
 
+<div *ngIf="!pageLoading" class="container float-end text-end mt-1">
+  <div class="row justify-content-end">
+
+    <div class="col-sm-3">
+      <button [routerLink]="['/nuova-fattura', id]" class="btn btn-success">Nuova fattura +</button>
+    </div>
+
+    <div class="col-sm-4">
+      <select name="filtro" id="filtro" class="m-1">
+        <option selected disabled>filtra per</option>
+        <option value="anno">anno</option>
+        <option value="stato">stato</option>
+      </select>
+      <input type="text" placeholder="inserisci" id="valore" class="m-1">
+      <button type="button" class="btn btn-danger m-1" (click)="filtra()">cerca
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</div>
 
 <table *ngIf="!pageLoading" class="table">
   <thead>
@@ -8,19 +28,6 @@
       <th scope="col">Anno</th>
       <th scope="col">Importo</th>
       <th scope="col">Stato</th>
-      <th scope="col"><button [routerLink]="['/nuova-fattura', id]" class="btn btn-success">Nuova fattura +</button>
-      </th>
-      <th scope="col">
-        <select name="filtro" id="filtro" class="m-1">
-          <option selected disabled>filtra per</option>
-          <option value="anno">anno</option>
-          <option value="stato">stato</option>
-        </select>
-        <input type="text" placeholder="inserisci" id="valore" class="m-1">
-        <button type="button" class="btn btn-danger m-1" (click)="filtra()">cerca
-          <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-        </button>
-      </th>
     </tr>
 
   </thead>

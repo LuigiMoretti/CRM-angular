@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FattureService } from '../fatture/fatture.service';
-import { Router } from '@angular/router';
+import { Params, Router, ActivatedRoute } from '@angular/router';
 import { Fattura } from 'src/app/models/fattura';
+import { subscriptionLogsToBeFn } from 'rxjs/internal/testing/TestScheduler';
+import { Subscription } from 'rxjs';
 
 @Component({
   templateUrl: './nuova-fattura.page.html',
@@ -12,20 +14,32 @@ export class NuovaFatturaPage implements OnInit {
   isLoading = false;
   errorMessage = undefined;
   authSrv: any;
-
-  constructor(private fatSrv: FattureService, private router: Router) {}
+  sub!: Subscription;
+  id: number | undefined;
+  numeroFattura: number | undefined;
+  constructor(
+    private fatSrv: FattureService,
+    private router: ActivatedRoute,
+    private routerNavigate: Router
+  ) {}
 
   ngOnInit(): void {
-    // this.fatSrv.recuperaUltimaFattura().subscribe((res) => {
-    //   let ultimoId = 0;
-    //   for (let i of res.content) {
-    //     if (i.id > ultimoId) {
-    //       ultimoId = i.id;
-    //     }
-    //   }
-    //   console.log(ultimoId);
-    //   this.numeroFattura = ultimoId+1;
-    // });
+    this.sub = this.router.params.subscribe((params: Params) => {
+      this.id = +parseInt(params['id']);
+      this.fatSrv;
+      console.log(params['id']);
+    });
+
+    this.fatSrv.recuperaUltimaFattura(this.id!).subscribe((res) => {
+      let ultimoNumero = 0;
+      for (let i of res.content) {
+        if (i.numero > ultimoNumero) {
+          ultimoNumero = i.numero;
+        }
+      }
+      console.log(ultimoNumero);
+      this.numeroFattura = ultimoNumero + 1;
+    });
   }
 
   async onsubmit(form: NgForm) {
@@ -58,7 +72,7 @@ export class NuovaFatturaPage implements OnInit {
       this.isLoading = false;
       this.errorMessage = undefined;
       alert('Nuova Fattura inserita correttamente!');
-      this.router.navigate(['/fatture']);
+      this.routerNavigate.navigate(['/fatture']);
     } catch (error: any) {
       this.isLoading = false;
       this.errorMessage = error;

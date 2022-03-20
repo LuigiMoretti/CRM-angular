@@ -10,6 +10,7 @@ export class ClientiPage implements OnInit {
   clienti: Cliente[] | undefined;
   pagina = 0;
   isLoading = false;
+  pageLoading = true;
   booleanoFiltro = false;
   fatturatoValore = false;
   fattureCliente: Fattura[] | undefined;
@@ -23,17 +24,21 @@ export class ClientiPage implements OnInit {
   }
 
   getClienti() {
-    this.clSrv
-      .getClienti(this.pagina)
-      .subscribe((response) => (this.clienti = response.content));
+    this.pageLoading = true;
+    this.clSrv.getClienti(this.pagina).subscribe((response) => {
+      this.clienti = response.content;
+      this.pageLoading = false;
+    });
   }
 
   async onRemoveCliente() {
-    this.clSrv.eliminaFattureCLiente(this.idDaEliminare!).subscribe((response) => {
+    this.clSrv.eliminaFattureCLiente(this.idDaEliminare!).subscribe(() => {
+      this.pageLoading = true;
       this.clSrv.removeCliente(this.idDaEliminare!);
-  setTimeout(() => {
-    this.getClienti();
-  }, 200);
+      setTimeout(() => {
+        this.getClienti();
+        this.pageLoading = false;
+      }, 1000);
     });
   }
 
@@ -97,7 +102,7 @@ export class ClientiPage implements OnInit {
       this.fattureCliente = res.content;
       this.isLoadingModale = false;
       this.idDaEliminare = id;
-      console.log(this.idDaEliminare)
+      console.log(this.idDaEliminare);
     });
   }
 }

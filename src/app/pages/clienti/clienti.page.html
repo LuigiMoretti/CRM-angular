@@ -1,4 +1,9 @@
-<table class="table">
+<h1 *ngIf="pageLoading" class="spinner-border spinner-border-lg" role="status" aria-hidden="true"></h1>
+
+
+
+
+<table class="table" *ngIf="!pageLoading">
   <thead>
     <tr>
       <th scope="col">id</th>
@@ -33,11 +38,14 @@
       <td>{{cliente.email}}</td>
       <td>{{cliente.partitaIva}}</td>
 
-      <td><button class="btn btn-primary" [routerLink]="['/dettagli-cliente', cliente.id]">Dettagli Cliente</button></td>
-      <td><button class="btn btn-primary" [routerLink]="['/fatture-cliente', cliente.id]">Fatture Personali</button></td>
+      <td><button class="btn btn-primary" [routerLink]="['/dettagli-cliente', cliente.id]">Dettagli Cliente</button>
+      </td>
+      <td><button class="btn btn-primary" [routerLink]="['/fatture-cliente', cliente.id]">Fatture Personali</button>
+      </td>
       <td><button class="btn btn-success" [routerLink]="['/edit-cliente', cliente.id]">Modifica</button></td>
-      <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getFattureCliente(cliente.id)">Elimina
-      </button></td>
+      <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"
+          (click)="getFattureCliente(cliente.id)">Elimina
+        </button></td>
     </tr>
   </tbody>
 </table>
@@ -50,14 +58,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div *ngIf="fattureCliente" class="modal-body">
-        Il cliente selezionato ha <span *ngIf="isLoadingModale" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span *ngIf="!isLoadingModale">{{fattureCliente.length}}</span> fatture, sei sicuro di voler procedere con l'eliminazione totale del cliente e di tutte le sue fatture?
+        Il cliente selezionato ha <span *ngIf="isLoadingModale" class="spinner-border spinner-border-sm" role="status"
+          aria-hidden="true"></span><span *ngIf="!isLoadingModale">{{fattureCliente.length}}</span> fatture, sei sicuro
+        di voler procedere con l'eliminazione totale del cliente e di tutte le sue fatture?
       </div>
       <div *ngIf="!fattureCliente" class="modal-body">
         Il cliente selezionato non ha fatture, sei sicuro di voler procedere con l'eliminazione totale del cliente?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
-        <button type="button" class="btn btn-primary" (click)="onRemoveCliente()" data-bs-dismiss="modal">Elimina</button>
+        <button type="button" class="btn btn-primary" (click)="onRemoveCliente()"
+          data-bs-dismiss="modal">Elimina</button>
       </div>
     </div>
   </div>
@@ -78,4 +89,3 @@
     </li>
   </ul>
 </nav>
-

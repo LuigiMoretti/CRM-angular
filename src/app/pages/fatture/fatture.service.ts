@@ -36,7 +36,8 @@ export class FattureService {
 
   editFattura(data: Fattura, id: number) {
     return this.http
-      .put<Fattura>(`${this.URL}/api/fatture/${id}`, data).subscribe();
+      .put<Fattura>(`${this.URL}/api/fatture/${id}`, data)
+      .subscribe();
   }
 
   getFattureFiltrate(filtro: string, valoreFiltro: string, pagina: number) {
@@ -58,5 +59,11 @@ export class FattureService {
         `${this.URL}/api/fatture/${filtro}/${valoreFiltro}?page=${pagina}&size=10000&sort=id,ASC`
       );
     }
+  }
+
+  recuperaUltimaFattura(id: number) {
+    return this.http.get<any>(
+      `${this.URL}/api/fatture/cliente/${id}?page=0&size=100000&sort=id,ASC`
+    );
   }
 }

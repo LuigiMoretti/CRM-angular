@@ -46,7 +46,9 @@ export class FattureClientePage implements OnInit {
   }
 
   rimuoviFattura(fattura: Fattura) {
-    this.fatSrv.removeFattura(fattura).subscribe(response => {this.onGetFattureCliente(this.id)})
+    this.fatSrv.removeFattura(fattura).subscribe((response) => {
+      this.onGetFattureCliente(this.id);
+    });
   }
 
   filtra() {
@@ -59,8 +61,8 @@ export class FattureClientePage implements OnInit {
     this.fatSrv
       .getFattureFiltrate(filtro, valoreFiltro, this.pagina)
       .subscribe((res) => {
-          this.fatture = res.content;
-          this.isLoading = false;
+        this.fatture = res.content;
+        this.isLoading = false;
       });
   }
 }

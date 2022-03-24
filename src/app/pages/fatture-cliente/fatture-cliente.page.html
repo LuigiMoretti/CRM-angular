@@ -3,10 +3,6 @@
 <div *ngIf="!pageLoading" class="container float-end text-end mt-1">
   <div class="row justify-content-end">
 
-    <div class="col-sm-3">
-      <button [routerLink]="['/nuova-fattura', id]" class="btn btn-success">Nuova fattura +</button>
-    </div>
-
     <div class="col-sm-4">
       <select name="filtro" id="filtro" class="m-1">
         <option selected disabled>filtra per</option>
@@ -28,6 +24,8 @@
       <th scope="col">Anno</th>
       <th scope="col">Importo</th>
       <th scope="col">Stato</th>
+      <th scope="col"><button [routerLink]="['/nuova-fattura', id]" class="btn btn-success">Nuova fattura +</button>
+      </th>
     </tr>
 
   </thead>

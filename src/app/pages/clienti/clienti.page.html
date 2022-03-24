@@ -3,11 +3,8 @@
 
 <div *ngIf="!pageLoading" class="container float-end">
   <div class="row justify-content-end">
-    <div class="col-md-3 text-end">
-      <button [routerLink]="['/nuovo-cliente']" class="btn btn-success">Nuovo Cliente +</button>
-    </div>
     <div class="col-md-5 text-end">
-      <select (click)="getFiltro()" name="filtro" id="filtro" class="m-1">
+      <select (change)="getFiltro()" name="filtro" id="filtro" class="m-1">
         <option selected disabled>filtra per</option>
         <option value="id">id</option>
         <option value="fatturatoannuale">fatturato annuale</option>
@@ -33,6 +30,7 @@
       <th scope="col">Ragione Sociale</th>
       <th scope="col">Email</th>
       <th scope="col">Partita Iva</th>
+      <th scope="col"><button [routerLink]="['/nuovo-cliente']" class="btn btn-success">Nuovo Cliente +</button></th>
     </tr>
 
   </thead>

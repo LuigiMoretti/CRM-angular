@@ -58,6 +58,7 @@ export class ClientiPage implements OnInit {
     } else {
       this.fatturatoValore = false;
     }
+    console.log('entrato');
   }
 
   filtraFatturato() {

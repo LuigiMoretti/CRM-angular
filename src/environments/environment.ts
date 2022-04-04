@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  pathApi: 'https://epicode.online/epicodebeservice_v2',
+  pathApi: 'http://epicode.online/epicodebeservice_v2',
 };
 
 /*

@@ -1,4 +1,5 @@
-# Progettofinaleepicode
+Un crm interamente sviluppato in angular!
+prima di iniziare installare i node modules con -npm i-
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
 
